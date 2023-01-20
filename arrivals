@@ -1,0 +1,24 @@
+import requests
+
+# TFL API endpoint for tube arrival times
+url = 'https://api.tfl.gov.uk/Line/{}/Arrivals/{}'
+# station code (example: "940GZZLUBLG" for Bank station)
+'''station_code = "YOUR_STATION_CODE"
+app_id = "YOUR_APP_ID"
+app_key = "YOUR_APP_KEY"'''
+ids = 'district'
+stopPointId = '940GZZLUPYB'
+
+
+# API request
+response = requests.get(url.format(ids, stopPointId))
+
+# parse the JSON response
+data = response.json()
+
+# loop through the list of arrival times
+for arrival in data:
+    print("Destination: {}".format(arrival["destinationName"]))
+    print("Expected arrival: {} minutes and {} seconds".format(divmod(arrival["timeToStation"],60)[0],divmod(arrival["timeToStation"],60)[1]))
+    print("-----------------")
+
